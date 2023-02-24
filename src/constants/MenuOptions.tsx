@@ -88,3 +88,17 @@ export const listTypeRealEstate = [
     type: 5,
   },
 ];
+
+export const rangePrice = [
+  { label: "Dưới 1 triệu đồng", range: { min: 0, max: 5 } },
+  { label: "Từ 3 - 5 triệu đồng", range: { min: 20, max: 32 } },
+  { label: "Từ 5-15 triệu đồng", range: { min: 32, max: 100 } },
+  { label: "Trên 15 triệu đồng", range: { min: 100, max: 100 } },
+];
+
+export const rangeaAreage = [
+  { label: "Dưới 20m2", range: { min: 0, max: 20 } },
+  { label: "Từ 20m2 - 40m2", range: { min: 20, max: 40 } },
+  { label: "40m2 - 60m2", range: { min: 40, max: 60 } },
+  { label: "60m2-100m2", range: { min: 60, max: 100 } },
+];

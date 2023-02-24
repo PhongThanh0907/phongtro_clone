@@ -11,7 +11,7 @@ import {
 
 import Button from "../Button/Button";
 import ModalSelect from "../Modal/ModalSelect";
-import ModalRank from "../Modal/ModalRank";
+import ModalRange from "../Modal/ModalRange";
 
 const MenuSearch = () => {
   const [modalSelect, setModalSelect] = useState<boolean>(false);
@@ -21,8 +21,10 @@ const MenuSearch = () => {
   const [acreage, setaAreage] = useState<string>();
   const [textRealEstate, setTextRealEstate] = useState<string>();
   const [textLocation, setTextLocation] = useState<string>();
+  const [textRangePrice, setTextRangePrice] = useState<string>();
+  const [textRangeAcreage, setTextRangeAcreage] = useState<string>();
 
-  const textOption = (e: string) => {
+  const textOption = (e: string, min?: number, max?: number) => {
     switch (option) {
       case 1:
         setTextRealEstate(e);
@@ -30,10 +32,15 @@ const MenuSearch = () => {
       case 2:
         setTextLocation(e);
         break;
+      case 3:
+        const textPrice = `${min} - ${max} triệu`;
+        setTextRangePrice(textPrice);
+        break;
+      case 4:
+        const textAcreage = `${min} - ${max}m2`;
+        setTextRangeAcreage(textAcreage);
     }
   };
-
-  console.log(textRealEstate);
 
   return (
     <div className="bg-myellow rounded-md m-2.5">
@@ -107,16 +114,18 @@ const MenuSearch = () => {
             className="flex col-span-9 gap-1 items-center"
           >
             <CurrencyDollarIcon className="h-4 w-4 text-gray-400" />
-            {price ? (
-              <h4 className="text-sm font-semibold truncate">{price}</h4>
+            {textRangePrice ? (
+              <h4 className="text-sm font-semibold truncate">
+                {textRangePrice}
+              </h4>
             ) : (
               <h4 className="text-gray-400 text-sm">Chọn giá</h4>
             )}
           </div>
           <div className="col-span-1 flex justify-end">
-            {price ? (
+            {textRangePrice ? (
               <XMarkIcon
-                onClick={() => setPrice(undefined)}
+                onClick={() => setTextRangePrice(undefined)}
                 className="h-3 w-3 mt-1 text-black"
               />
             ) : (
@@ -136,18 +145,18 @@ const MenuSearch = () => {
             className="flex col-span-9 gap-1 items-center"
           >
             <AdjustmentsHorizontalIcon className="h-4 w-4 text-gray-400" />
-            {textRealEstate ? (
+            {textRangeAcreage ? (
               <h4 className="text-sm font-semibold truncate">
-                {textRealEstate}
+                {textRangeAcreage}
               </h4>
             ) : (
               <h4 className="text-gray-400 text-sm">Chọn diện tích</h4>
             )}
           </div>
           <div className="col-span-1 flex justify-end">
-            {textRealEstate ? (
+            {textRangeAcreage ? (
               <XMarkIcon
-                onClick={() => setTextRealEstate(undefined)}
+                onClick={() => setTextRangeAcreage(undefined)}
                 className="h-3 w-3 mt-1 text-black"
               />
             ) : (
@@ -173,7 +182,7 @@ const MenuSearch = () => {
         />
       )}
       {modalSelect && option > 2 && (
-        <ModalRank
+        <ModalRange
           option={option}
           openModal={modalSelect}
           onClose={() => setModalSelect(false)}

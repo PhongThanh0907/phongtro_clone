@@ -10,7 +10,7 @@ const ModalSelect = ({
 }: {
   option?: number;
   openModal: boolean;
-  onClose?: any;
+  onClose: () => void;
   setTextOption: (e: string) => void;
 }) => {
   const [provinces, setProvinces] = useState([]);
@@ -24,7 +24,7 @@ const ModalSelect = ({
     }
   };
 
-  const handleOptionChange = (e: any) => {
+  const handleOptionChange = (e: string) => {
     setTextOption(e);
     setTimeout(() => onClose(), 500);
   };
@@ -87,29 +87,31 @@ const ModalSelect = ({
                 </>
               ) : (
                 <>
-                  {provinces?.map((item: any, index: number) => (
-                    <div
-                      key={index}
-                      className="mx-6 border-b py-3 cursor-pointer hover:text-mblue duration-200 font-semibold"
-                    >
-                      <input
-                        type="radio"
-                        name="Provinces"
-                        id={item.code}
-                        value={item.name}
-                        className="h-4 w-4 relative top-0.5"
-                        onChange={(e) => {
-                          handleOptionChange(e.target.value);
-                        }}
-                      />
-                      <label
-                        className="ml-2 cursor-pointer w-full pr-[60%]"
-                        htmlFor={item.code}
+                  {provinces?.map(
+                    (item: { name: string; code: string }, index: number) => (
+                      <div
+                        key={index}
+                        className="mx-6 border-b py-3 cursor-pointer hover:text-mblue duration-200 font-semibold"
                       >
-                        {item.name}
-                      </label>
-                    </div>
-                  ))}
+                        <input
+                          type="radio"
+                          name="Provinces"
+                          id={item.code}
+                          value={item.name}
+                          className="h-4 w-4 relative top-0.5"
+                          onChange={(e) => {
+                            handleOptionChange(e.target.value);
+                          }}
+                        />
+                        <label
+                          className="ml-2 cursor-pointer w-full pr-[60%]"
+                          htmlFor={item.code}
+                        >
+                          {item.name}
+                        </label>
+                      </div>
+                    )
+                  )}
                 </>
               )}
             </div>
